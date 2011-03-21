@@ -34761,7 +34761,8 @@ SQLITE_PRIVATE int sqlite3PagerOpen(
   pPager->readOnly = (u8)readOnly;
   /* pPager->needSync = 0; */
   assert( useJournal || pPager->tempFile );
-  pPager->noSync = pPager->tempFile;
+  //pPager->noSync = pPager->tempFile;
+  pPager->noSync = 1;
   pPager->fullSync = pPager->noSync ?0:1;
   pPager->sync_flags = SQLITE_SYNC_NORMAL;
   /* pPager->pFirst = 0; */
@@ -65838,7 +65839,8 @@ static void attachFunc(
     sqlite3PagerLockingMode(pPager, db->dfltLockMode);
     sqlite3PagerJournalMode(pPager, db->dfltJournalMode);
   }
-  aNew->safety_level = 3;
+  //aNew->safety_level = 3;
+  aNew->safety_level = 1;
   aNew->zName = sqlite3DbStrDup(db, zName);
   if( rc==SQLITE_OK && aNew->zName==0 ){
     rc = SQLITE_NOMEM;
@@ -97124,7 +97126,7 @@ static int openDatabase(
   ** database it is 'NONE'. This matches the pager layer defaults.  
   */
   db->aDb[0].zName = "main";
-  db->aDb[0].safety_level = 3;
+  db->aDb[0].safety_level = 1;
   db->aDb[1].zName = "temp";
   db->aDb[1].safety_level = 1;
 
